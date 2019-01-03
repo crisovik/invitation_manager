@@ -16,9 +16,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
 <div id="container">
-
-  <div class="row">
-    <div class="offset-md-3 col-md-3">
-      <h1>Oliiiiii</h1>
-    </div>
-  </div>
