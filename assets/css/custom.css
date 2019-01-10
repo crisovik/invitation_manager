@@ -5,3 +5,30 @@
 .prueba-dos {
   color: blue;
 }
+
+.name-text {
+	width: 100%;
+}
+
+h1 {
+	padding-top: 30px;
+}
+
+.confirmed {
+	color: green;
+}
+
+.one-guest {
+	padding-top: 6px;
+	padding-bottom: : 6px;
+	padding-left: 12px; 
+	padding-right: : 12px; 
+}
+
+.hide {
+	display: none;
+}
+
+label, .checkbox, #select_all {
+	cursor: pointer;
+}
