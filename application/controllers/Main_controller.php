@@ -28,7 +28,7 @@ class Main_controller extends CI_Controller {
 
 		$this->load->view('layout/head', $variables);
 		$this->load->view('content/addGuest');
-    	$this->load->view('layout/footer');
+    $this->load->view('layout/footer');
 	}
 
 	public function insert_guest() {
@@ -98,22 +98,48 @@ class Main_controller extends CI_Controller {
 
 		$this->load->view('layout/head', $variables);
 		$this->load->view('content/viewGuests', $guests);
-    	$this->load->view('layout/footer');
+    $this->load->view('layout/footer');
 	}
 
-	public function confirm_guests() {
+	public function confirm_guests($guest_link) {
 		$variables['title'] = 'Confirmar invitados';
 
-		//Get from cookies
-		$id_g = 1;
-		$data['guest'] = $this->Data_model->get_guest($id_g);
-		$data['companions'] = $this->Data_model->get_guest_companion($id_g);
-		$data['total_confirmed'] = $this->Data_model->get_guest_confirmed($id_g)[0]->total_confirmed;
-		$data['total'] = count($data['companions']) + 1;
-		
-		$this->load->view('layout/head', $variables);
-		$this->load->view('content/confirmGuests', $data);
-    	$this->load->view('layout/footer');
+		//verifica si el usuario tiene sesión
+		//el usuario tiene sesión válida entonces entra directamente a confirmar
+		if(isset($_SESSION['name']) == TRUE) {
+			//Get from cookies
+			//$id_g = 1;
+			$id_g = $this->session->userdata('id');
+
+			$data['guest'] = $this->Data_model->get_guest($id_g);
+			$data['companions'] = $this->Data_model->get_guest_companion($id_g);
+			$data['total_confirmed'] = $this->Data_model->get_guest_confirmed($id_g)[0]->total_confirmed;
+			$data['total'] = count($data['companions']) + 1;
+
+			$this->load->view('layout/head', $variables);
+			$this->load->view('content/confirmGuests', $data);
+	    $this->load->view('layout/footer');
+		}
+		//el usuario no tiene sesión
+		else {
+			//verifica si el usuario tiene una contraseña ya establecida
+			//el usuario tiene una contraseña entonces va al loginGuest
+			if($this->Data_model->verify_user_has_password($guest_link)[0]->password != NULL) {
+				$data['link'] = $guest_link;
+
+				$this->load->view('layout/head', $variables);
+				$this->load->view('content/loginGuest', $data);
+				$this->load->view('layout/footer');
+			}
+			//el usuario no tiene una contraseña entonces va a generar su contraseña
+			else {
+				$data['link'] = $guest_link;
+
+				$this->load->view('layout/head', $variables);
+				$this->load->view('content/setGuestPassword', $data);
+				$this->load->view('layout/footer');
+			}
+		}
 	}
 
 	public function set_confirmations() {
@@ -122,9 +148,34 @@ class Main_controller extends CI_Controller {
 		$this->Data_model->set_guest_confirmation($data[0][0], $data[0][1]);
 
 		if(count($data) > 1){
-			for ($i=1; $i < count($data); $i++) { 
+			for ($i=1; $i < count($data); $i++) {
 				$this->Data_model->set_companion_confirmation($data[$i][0], $data[$i][1]);
-			}		
+			}
+		}
+	}
+
+	public function set_password() {
+		$password = $_POST['password'];
+		$link = $_POST['link'];
+		$this->Data_model->set_guest_password($password, $link);
+	}
+
+	public function login_guest() {
+		$password = $_POST['password'];
+		$link = $_POST['link'];
+		$guest_data = $this->Data_model->login_guest($password, $link);
+
+		if(empty($guest_data)) {
+			echo 0;
+		}
+		else {
+			$guest_session_data = array(
+				'id' => $guest_data[0]->id_g,
+				'name' => $guest_data[0]->name,
+				'confirmed' => $guest_data[0]->confirmed,
+			);
+			$this->session->set_userdata($guest_session_data);
+			echo 1;
 		}
 	}
 }

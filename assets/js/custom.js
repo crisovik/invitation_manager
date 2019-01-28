@@ -8,10 +8,30 @@ $( document ).ready(function() {
     $(this).parent().remove();
   });
 
-  $('#submitGuest').on('click', function(e) {
-
+  $('#submitNewPassword').on('click', function(e){
     e.preventDefault();
+    $.ajax({
+        method: 'POST',
+        url: "http://localhost/invitation_manager/index.php/Main_controller/set_password",
+        data: $('#setPasswordForm').serialize(),
+      }).success(function(data) {
+        console.log(data);
+      });
+  });
 
+  $('#loginButton').on('click', function(e){
+    e.preventDefault();
+    $.ajax({
+        method: 'POST',
+        url: "http://localhost/invitation_manager/index.php/Main_controller/login_guest",
+        data: $('#loginForm').serialize(),
+      }).success(function(data) {
+        console.log(data);
+      });
+  });
+
+  $('#submitGuest').on('click', function(e) {
+    e.preventDefault();
     $.ajax({
         method: 'POST',
         url: "http://localhost/invitation_manager/index.php/Main_controller/insert_guest",
@@ -24,7 +44,6 @@ $( document ).ready(function() {
           timer: 1500,
         });
       });
-
     $('#guest').val('');
     $('.companionRow').remove();
   });
@@ -32,7 +51,7 @@ $( document ).ready(function() {
   $('#select_all').change(function() {
     var total = $('#totalGuests').text();
     var status = this.checked;
-    
+
     $('.checkbox').each(function() {
       this.checked = status;
     });

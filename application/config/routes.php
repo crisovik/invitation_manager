@@ -52,3 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['content'] = 'Main_controller/content';
+$route['agregar_invitado'] = 'Main_controller/add_guest';
+$route['lista_invitados'] = 'Main_controller/view_guests';
+$route['confirmar_invitacion/(.+)'] = 'Main_controller/confirm_guests/$1';

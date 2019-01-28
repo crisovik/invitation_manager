@@ -65,5 +65,22 @@ class Data_model extends CI_Model {
    return $this->db->update('companion');
   }
 
+  public function verify_user_has_password($guest_link) {
+    $this->db->select('password');
+    $this->db->where('link', $guest_link);
+    return $this->db->get('guest')->result();
+  }
+
+  public function set_guest_password($password, $guest_link) {
+    $this->db->set('password', $password);
+    $this->db->where('link', $guest_link);
+    return $this->db->update('guest');
+  }
+
+  public function login_guest($password, $link) {
+    $this->db->where('password', $password);
+    $this->db->where('link', $link);
+    return $this->db->get('guest')->result();
+  }
 }
 ?>
