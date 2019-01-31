@@ -57,3 +57,5 @@ $route['content'] = 'Main_controller/content';
 $route['agregar_invitado'] = 'Main_controller/add_guest';
 $route['lista_invitados'] = 'Main_controller/view_guests';
 $route['confirmar_invitacion/(.+)'] = 'Main_controller/confirm_guests/$1';
+$route['invitacion/(.+)'] = 'Main_controller/invitation/$1';
+$route['numero_de_cuenta/(.+)'] = 'Main_controller/account_number/$1';

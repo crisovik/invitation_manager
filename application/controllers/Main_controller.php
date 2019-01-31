@@ -102,7 +102,7 @@ class Main_controller extends CI_Controller {
 	}
 
 	public function confirm_guests($guest_link) {
-		$variables['title'] = 'Confirmar invitados';
+		$variables['title'] = 'Confirmar invitación';
 
 		//verifica si el usuario tiene sesión
 		//el usuario tiene sesión válida entonces entra directamente a confirmar
@@ -116,7 +116,10 @@ class Main_controller extends CI_Controller {
 			$data['total_confirmed'] = $this->Data_model->get_guest_confirmed($id_g)[0]->total_confirmed;
 			$data['total'] = count($data['companions']) + 1;
 
+			$header['link'] = $guest_link;
+
 			$this->load->view('layout/head', $variables);
+			$this->load->view('layout/header', $header);
 			$this->load->view('content/confirmGuests', $data);
 	    $this->load->view('layout/footer');
 		}
@@ -176,6 +179,67 @@ class Main_controller extends CI_Controller {
 			);
 			$this->session->set_userdata($guest_session_data);
 			echo 1;
+		}
+	}
+
+	public function invitation($guest_link) {
+		$variables['title'] = "Invitación Lau y Cris";
+		$header['link'] = $guest_link;
+		$data['link'] = $guest_link;
+		if(isset($_SESSION['name']) == TRUE) {
+			$this->load->view('layout/head', $variables);
+			$this->load->view('layout/header', $header);
+			$this->load->view('content/invitation', $data);
+			$this->load->view('layout/footer');
+		}
+		else {
+			//verifica si el usuario tiene una contraseña ya establecida
+			//el usuario tiene una contraseña entonces va al loginGuest
+			if($this->Data_model->verify_user_has_password($guest_link)[0]->password != NULL) {
+				$data['link'] = $guest_link;
+
+				$this->load->view('layout/head', $variables);
+				$this->load->view('content/loginGuest', $data);
+				$this->load->view('layout/footer');
+			}
+			//el usuario no tiene una contraseña entonces va a generar su contraseña
+			else {
+				$data['link'] = $guest_link;
+
+				$this->load->view('layout/head', $variables);
+				$this->load->view('content/setGuestPassword', $data);
+				$this->load->view('layout/footer');
+			}
+		}
+	}
+
+	public function account_number($guest_link) {
+		$variables['title'] = "Número de cuenta";
+		$header['link'] = $guest_link;
+		if(isset($_SESSION['name']) == TRUE) {
+			$this->load->view('layout/head', $variables);
+			$this->load->view('layout/header', $header);
+			$this->load->view('content/account_number');
+			$this->load->view('layout/footer');
+		}
+		else {
+			//verifica si el usuario tiene una contraseña ya establecida
+			//el usuario tiene una contraseña entonces va al loginGuest
+			if($this->Data_model->verify_user_has_password($guest_link)[0]->password != NULL) {
+				$data['link'] = $guest_link;
+
+				$this->load->view('layout/head', $variables);
+				$this->load->view('content/loginGuest', $data);
+				$this->load->view('layout/footer');
+			}
+			//el usuario no tiene una contraseña entonces va a generar su contraseña
+			else {
+				$data['link'] = $guest_link;
+
+				$this->load->view('layout/head', $variables);
+				$this->load->view('content/setGuestPassword', $data);
+				$this->load->view('layout/footer');
+			}
 		}
 	}
 }

@@ -15,7 +15,8 @@ $( document ).ready(function() {
         url: "http://localhost/invitation_manager/index.php/Main_controller/set_password",
         data: $('#setPasswordForm').serialize(),
       }).success(function(data) {
-        console.log(data);
+        console.log('chumi');
+        location.reload();
       });
   });
 
@@ -23,10 +24,18 @@ $( document ).ready(function() {
     e.preventDefault();
     $.ajax({
         method: 'POST',
-        url: "http://localhost/invitation_manager/index.php/Main_controller/login_guest",
+        //url: "http://localhost/invitation_manager/index.php/Main_controller/login_guest",
+        url: base_url + "index.php/Main_controller/login_guest",
         data: $('#loginForm').serialize(),
       }).success(function(data) {
-        console.log(data);
+        if(data==1) {
+          location.reload();
+          window.location = base_url + 'invitacion/' + $('#link-guest').val();
+        }
+        else {
+          $('#password-input').val('');
+          $('.error-message').css('display', 'block');
+        }
       });
   });
 

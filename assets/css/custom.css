@@ -1,3 +1,60 @@
+html, body {
+    height:100%;
+    /*font-family: roboto;*/
+    background-color: #543151;
+}
+
+#setGuestPassword, #loginGuest, #confirmGuests {
+  height: 100%;
+}
+
+.nav-link {
+  font-size: 20px;
+}
+
+.btn-secondary {
+  background-color: #442141 !important;
+  border-color: #442141 !important;
+}
+
+.btn-secondary:hover {
+  background-color: #644161 !important;
+  border-color: #644161 !important;
+}
+
+.btn-success {
+  background-color: #a1a8af !important;
+  border-color: #a1a8af !important;
+  color: #442141 !important;
+}
+
+.btn-sucess:hover {
+  background-color: #91a79e !important;
+  border-color: #91a79e !important;
+}
+
+.button-bottom {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.full-image {
+  background-image: url("../images/lights.jpg");
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.square-container {
+  margin-top: 200px;
+  padding: 50px;
+  border-radius: 25px;
+  background-color: white;
+}
+
 .prueba {
   color: red;
 }
@@ -10,8 +67,25 @@
 	width: 100%;
 }
 
-h1 {
-	padding-top: 30px;
+.full-width {
+  width: 100%;
+}
+
+.confirm-title {
+  background-color: #a1a8af;
+  color: #442141;
+	padding-bottom: 5px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.confirm-square {
+  background-color: #e8f0f3;
+}
+
+.title-container {
+  margin-bottom: 0px;
+  padding: 0px;
 }
 
 .confirmed {
@@ -21,8 +95,8 @@ h1 {
 .one-guest {
 	padding-top: 6px;
 	padding-bottom: : 6px;
-	padding-left: 12px; 
-	padding-right: : 12px; 
+	padding-left: 12px;
+	padding-right: : 12px;
 }
 
 .hide {
@@ -31,4 +105,78 @@ h1 {
 
 label, .checkbox, #select_all {
 	cursor: pointer;
+}
+
+#container {
+  overflow-x: hidden;
+  height: 100%;
+}
+
+.error-message {
+  color: red;
+  display: none;
+}
+
+.confirm-container {
+  margin-top: 150px;
+}
+
+#confirmForm {
+  padding-top: 30px;
+}
+
+.invitation_image {
+  display: block;
+  margin: 0px auto;
+  width: 40%;
+  height: auto;
+  margin-top: 15px;
+}
+
+.top-margin {
+  margin-top: 15px;
+}
+
+.negative-top {
+  margin-top: -55px;
+}
+
+.information-container {
+  background-color: #d9d9d9;
+  border-radius: 25px;
+}
+
+.account-container {
+  font-size: 20px;
+  text-align: justify;
+  color: #543151;
+  margin-top: 10%;
+  margin-left: 10%;
+}
+
+.account-container p {
+  margin-top: 50px;
+}
+
+@media only screen and (max-width: 600px) {
+  .square-container {
+    margin-top: 120px;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
+  .confirm-container {
+    margin-top: 120px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .invitation_image {
+    width: 100%;
+  }
+
+  .information-container {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 }
